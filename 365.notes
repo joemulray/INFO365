@@ -1,0 +1,23 @@
+INFO 365:
+Database Administration
+
+- Explain the internal workings of a Database management 
+systems from a high-level prespective adn use this knowwledege to inform database development efforts
+- Use various ERD techniques and notations 
+- Normalize
+- Employ advanced SQL syntax and techniques
+- Use PL/SQL competently, including stored procedures, user functions, and triggers
+
+
+
+- INFO210:
+	Overview
+	Relational Databases
+	ERDs
+	Normalization
+	SQL
+
+Why Databases
+- Core databse concepts and practices are extrely durable and are likely to serve you
+for years to come
+
