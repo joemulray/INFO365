@@ -1,0 +1,43 @@
+CREATE TABLE Products_Store2
+(
+ ProductId INTEGER PRIMARY KEY, 
+ Name VARCHAR2(50)
+)
+
+INSERT INTO Products_Store2 VALUES(1002,'Awesome Mega Widget');
+INSERT INTO Products_Store2 VALUES(1003,'Incredible Mega Widget');
+INSERT INTO Products_Store2 VALUES(1005,'Super Great Widget');
+INSERT INTO Products_Store2 VALUES(1006,'Awesome Great Widget');
+INSERT INTO Products_Store2 VALUES(1008,'Fantastic Great Widget');
+INSERT INTO Products_Store2 VALUES(1010,'Awesome Mondo Widget');
+INSERT INTO Products_Store2 VALUES(1011,'Incredible Mondo Widget');
+INSERT INTO Products_Store2 VALUES(1012,'Fantastic Mondo Widget');
+INSERT INTO Products_Store2 VALUES(1013,'Super Extraordinary Widget');
+INSERT INTO Products_Store2 VALUES(1014,'Awesome Extraordinary Widget');
+INSERT INTO Products_Store2 VALUES(1018,'Awesome Mega Hammer');
+INSERT INTO Products_Store2 VALUES(1020,'Fantastic Mega Hammer');
+INSERT INTO Products_Store2 VALUES(1021,'Super Great Hammer');
+INSERT INTO Products_Store2 VALUES(1022,'Awesome Great Hammer');
+INSERT INTO Products_Store2 VALUES(1024,'Fantastic Great Hammer');
+INSERT INTO Products_Store2 VALUES(1025,'Super Mondo Hammer');
+INSERT INTO Products_Store2 VALUES(1029,'Super Extraordinary Hammer');
+INSERT INTO Products_Store2 VALUES(1031,'Incredible Extraordinary Hammer');
+INSERT INTO Products_Store2 VALUES(1032,'Fantastic Extraordinary Hammer');
+INSERT INTO Products_Store2 VALUES(1034,'Awesome Mega Glider');
+INSERT INTO Products_Store2 VALUES(1036,'Fantastic Mega Glider');
+INSERT INTO Products_Store2 VALUES(1038,'Awesome Great Glider');
+INSERT INTO Products_Store2 VALUES(1040,'Fantastic Great Glider');
+INSERT INTO Products_Store2 VALUES(1043,'Incredible Mondo Glider');
+INSERT INTO Products_Store2 VALUES(1046,'Awesome Extraordinary Glider');
+INSERT INTO Products_Store2 VALUES(1047,'Incredible Extraordinary Glider');
+INSERT INTO Products_Store2 VALUES(1049,'Super Mega Gum');
+INSERT INTO Products_Store2 VALUES(1053,'Super Great Gum');
+INSERT INTO Products_Store2 VALUES(1055,'Incredible Great Gum');
+INSERT INTO Products_Store2 VALUES(1056,'Fantastic Great Gum');
+INSERT INTO Products_Store2 VALUES(1058,'Awesome Mondo Gum');
+INSERT INTO Products_Store2 VALUES(1059,'Incredible Mondo Gum');
+INSERT INTO Products_Store2 VALUES(1060,'Fantastic Mondo Gum');
+INSERT INTO Products_Store2 VALUES(1061,'Super Extraordinary Gum');
+INSERT INTO Products_Store2 VALUES(1062,'Awesome Extraordinary Gum');
+INSERT INTO Products_Store2 VALUES(1063,'Incredible Extraordinary Gum');
+INSERT INTO Products_Store2 VALUES(1064,'Fantastic Extraordinary Gum');
