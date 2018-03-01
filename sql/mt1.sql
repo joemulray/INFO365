@@ -1,0 +1,113 @@
+CREATE TABLE Student(
+StudNum INTEGER PRIMARY KEY,
+FName VARCHAR(32),
+FLame VARCHAR(32)
+);
+
+
+CREATE TABLE Nightmare(
+NMareNum INTEGER,
+Theme VARCHAR(32),
+Night INT,
+StudNum INTEGER,
+FOREIGN KEY (StudNum) References Student(StudNum),
+PRIMARY KEY(StudNum, NMareNum)
+);
+
+CREATE TABLE NightmareClown(
+StudNum INTEGER,
+ClownCertId INTEGER,
+NMareNum INTEGER,
+FOREIGN KEY (ClownCertId) REFERENCES Clown(ClownCertId),
+FOREIGN KEY (StudNum, NMareNum) REFERENCES Nightmare(StudNum, NMareNum),
+PRIMARY KEY(ClownCertId, StudNum, NMareNum)
+);
+
+
+CREATE TABLE Clown(
+ClownCertId INTEGER PRIMARY KEY,
+Name VARCHAR(32),
+ShoeSize INTEGER 
+);
+
+
+INSERT INTO Student (StudNum) VALUES (6);
+INSERT INTO Student (StudNum) VALUES (9);
+INSERT INTO Nightmare(StudNum, NMareNum) VALUES (6,43);
+INSERT INTO Nightmare(StudNum, NMareNum) VALUES (9,52);
+INSERT INTO Clown(ClownCertId) VALUES (25);
+
+INSERT INTO Clown(ClownCertId, Name, ShoeSize, NMareNum)
+VALUES (23, 'Bozo', 18, 43); 
+
+a)	V$SESSION_WAIT
+c)	V$SESSTAT
+d)	V$SQL
+
+INSERT INTO Clown (ClownCertId, Name, ShoeSize, NMareNum)
+VALUES (23, ‘Bozo’, 18, 43); 
+INSERT INTO Clown (ClownCertId, Name, ShoeSize, StudNum,NMareNum)
+VALUES (23, ‘Bozo’, 18, 6, 43);
+INSERT INTO NightmareClown (ClownCertId, StudNum, NMareNum)
+VALUES (25, 9, 52);
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE T1(
+Num INTEGER PRIMARY KEY,
+Let VARCHAR(1)
+);
+
+CREATE TABLE T2(
+Num INTEGER PRIMARY KEY,
+Let VARCHAR(1)
+);
+
+CREATE TABLE T3(
+Num INTEGER PRIMARY KEY,
+Let VARCHAR(1)
+);
+
+
+INSERT INTO T1 VALUES (7, 'L');
+INSERT INTO T1 VALUES (4, 'M');
+INSERT INTO T1 VALUES (2, 'A');
+INSERT INTO T1 VALUES (1, 'P');
+INSERT INTO T1 VALUES (9, 'Q');
+
+INSERT INTO T2 VALUES (3, 'O');
+INSERT INTO T2 VALUES (6, 'F');
+INSERT INTO T2 VALUES (8, 'E');
+INSERT INTO T2 VALUES (2, 'B');
+INSERT INTO T2 VALUES (6, 'W');
+
+INSERT INTO T3 VALUES (5, 'L');
+INSERT INTO T3 VALUES (1, 'P');
+INSERT INTO T3 VALUES (6, 'W');
+INSERT INTO T3 VALUES (9, 'B');
+INSERT INTO T3 VALUES (4, 'M');
+
+((SELECT * FROM T1
+  UNION
+  SELECT * FROM T3)
+ MINUS
+ (SELECT * FROM T2
+  UNION
+  SELECT * FROM T3))
+UNION ALL 
+((SELECT * FROM T3
+  INTERSECT
+  SELECT * FROM T1)
+ UNION
+ (SELECT * FROM T1
+  MINUS
+  SELECT * FROM T2));
+

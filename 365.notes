@@ -9,7 +9,6 @@ systems from a high-level prespective adn use this knowwledege to inform databas
 - Use PL/SQL competently, including stored procedures, user functions, and triggers
 
 
-
 - INFO210:
 	Overview
 	Relational Databases
@@ -20,4 +19,94 @@ systems from a high-level prespective adn use this knowwledege to inform databas
 Why Databases
 - Core databse concepts and practices are extrely durable and are likely to serve you
 for years to come
+
+
+Relational Databases:
+	A relation reprensents entities of interest
+other kinds of Databases
+	xml and object oriented databsases
+	no-sql Databases
+
+Representing Reality
+- Entities:
+things that need to be described and about which data will be tracked
+
+- Relationships:
+connections between and among those entites that document how they interact
+
+Some entities from that situation:
+STUDENTs
+COURSEs
+SECTIONs (of COURSEs)
+(academic) DEPARTMENTs
+INSTRUCTORs
+
+[mysql]
+CREATE TABLE Department
+(
+  DeptNum CHAR(4) CONSTRAINT dept_pk PRIMARY KEY,	
+  Name VARCHAR2(25) CONSTRAINT dept_uq_name UNIQUE, 
+  Location VARCHAR2(50) CONSTRAINT dept_nn_loc NOT NULL
+)
+
+CREATE TABLE Employee
+(
+   EmpId CHAR(9) CONSTRAINT emp_pk PRIMARY KEY,
+   LName VARCHAR(50) CONSTRAINT emp_nn_lname NOT NULL,
+   FName VARCHAR(50) CONSTRAINT emp_nn_fname NOT NULL,
+   Birthdate DATE,
+   Salary NUMBER(8,2),
+   Department CHAR(4) CONSTRAINT emp_nn_department NOT NULL
+    CONSTRAINT emp_fk_dept REFERENCES Department(DeptNum)
+)
+[end]
+
+need constraints to help define issues, otherwise oracle will define one automatically
+
+-------------------------------------------------
+
+
+#Normalization Foundation
+
+- Overview of Normalization
+
+ERD based design approach this far has been largely inutitive, reliant upon the intiuition and common 
+sense of the database designer
+
+Desirable to have formal criteria
+
+- Normalization:
+si a well defined process of transforming relations into structural forms
+that satisfy a collection of rules defining what is means for a schema to be of high
+quality
+
+(3NF) third normal form
+
+Design Goals
+
+Update Anomalies
+insertion (adding new tuples(rows) causes inconsistency)
+deletion (unintended data loss)
+modification
+
+#Superkey
+a set of attributes in a relation that will never have the asme value
+across two rows
+(primary key is a minimal superkey)
+
+#Key
+a minimal superkey - if it lost any more attributes would be 
+
+Any key that could be used as the primary key of a relation 
+schema is called a candidate key
+
+
+
+Advanced Normalization:
+
+Part of good design
+- Attribute Preservation
+- Depedency Preservation
+- Non-additive Join
+
 
