@@ -1,19 +1,21 @@
 DECLARE
 	CURSOR num_cur IS
 	SELECT * FROM RandomJunk FOR UPDATE;
+
+	rand1 NUMBER;
+	rand2 NUMBER;
+
 BEGIN
 
 	FOR v_junk IN num_cur 
 	LOOP
-		DECLARE 
-		rand1 NUMBER(4) :=  CEIL(DBMS_RANDOM.VALUE(0,1000));
-		rand2 NUMBER(4) :=  CEIL(DBMS_RANDOM.VALUE(0,1000));
+		-- Update the random values each loop iteration
+		rand1:=  CEIL(DBMS_RANDOM.VALUE(0,1000));
+		rand2 :=  CEIL(DBMS_RANDOM.VALUE(0,1000));
 
-		BEGIN
 		DBMS_OUTPUT.PUT_LINE('Random1:'||rand1);
 		DBMS_OUTPUT.PUT_LINE('Random2:'||rand2);
 		DBMS_OUTPUT.PUT_LINE('NUMJUNK:'||v_junk.NUMJUNK);
-
 
 		IF rand1 <= rand2 THEN
 			IF v_junk.NUMJUNK BETWEEN rand1 AND rand2 THEN
@@ -31,7 +33,6 @@ BEGIN
 			END IF;
 
 		END IF;
-		END;
 
 	END LOOP;
 	COMMIT;
@@ -39,18 +40,24 @@ END;
 /
 
 
+
+set serveroutput on size 1000000;
+
 DECLARE
-	time number(10) := 'SELECT
-EXTRACT(SECOND FROM SYSTIMESTAMP) 
-- TRUNC(EXTRACT(SECOND FROM SYSTIMESTAMP))
-FROM dual;
-'
+	time number;
 
 BEGIN
+	SELECT
+	EXTRACT(SECOND FROM SYSTIMESTAMP) 
+	- TRUNC(EXTRACT(SECOND FROM SYSTIMESTAMP)) INTO time
+	FROM dual;
+
+	DBMS_OUTPUT.PUT_LINE('Time: ' || time);
+
 	IF time <= .2 THEN
 		DBMS_OUTPUT.PUT_LINE('Dirty deeds done dirt cheap.');
 	ELSIF time >.2 AND time <=.4 THEN
-		-- DBMS_OUTPUT.PUT_LINE('John Wayne Gacy was a clown – that\'s freaky.');
+		DBMS_OUTPUT.PUT_LINE('John Wayne Gacy was a clown - that''s freaky.');
 	ELSIF time >.4 AND time <=.6 THEN
 		DBMS_OUTPUT.PUT_LINE('Most XKCD cartoons are over my head.');
 	ELSIF time >.6 AND time <=.8 THEN
@@ -63,3 +70,33 @@ BEGIN
 
 END;
 /
+
+
+
+DECLARE
+	CURSOR prod_cur IS
+	SELECT * FROM Products
+	ORDER BY PRODUCTID DESC;
+
+	previous Products%ROWTYPE;
+
+BEGIN
+	FOR v_prod IN prod_cur
+	LOOP
+
+	IF v_prod.PRODNAME LIKE '%Mega%' AND previous.PRODNAME LIKE '%Glider%' THEN
+		DBMS_OUTPUT.PUT_LINE('PRODUCTID:' || v_prod.PRODUCTID || '     PRODNAME:' || v_prod.PRODNAME);
+
+	ELSE
+		DBMS_OUTPUT.PUT_LINE('NO MATCH FOR PRODUCT');
+
+	-- Set record to previous value for comparison on next product
+	previous := v_prod;
+
+	END IF;
+	
+	END LOOP;
+END;
+/
+
+
