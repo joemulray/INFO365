@@ -2,6 +2,9 @@ DECLARE
 	CURSOR num_cur IS
 	SELECT * FROM RandomJunk FOR UPDATE;
 
+	TYPE prod_varray IS VARRAY(200) OF RandomJunk%ROWTYPE;
+  	varray_prod PROD_VARRAY := prod_varray();
+
 	rand1 NUMBER;
 	rand2 NUMBER;
 
@@ -13,32 +16,40 @@ BEGIN
 		rand1:=  CEIL(DBMS_RANDOM.VALUE(0,1000));
 		rand2 :=  CEIL(DBMS_RANDOM.VALUE(0,1000));
 
-		DBMS_OUTPUT.PUT_LINE('Random1:'||rand1);
-		DBMS_OUTPUT.PUT_LINE('Random2:'||rand2);
-		DBMS_OUTPUT.PUT_LINE('NUMJUNK:'||v_junk.NUMJUNK);
-
 		IF rand1 <= rand2 THEN
 			IF v_junk.NUMJUNK BETWEEN rand1 AND rand2 THEN
 				UPDATE RandomJunk 
 				SET TEXTJUNK='UPDATED'
 				WHERE CURRENT OF num_cur;
-				DBMS_OUTPUT.PUT_LINE('UPDATED');
+
+			ELSE
+				varray_prod.EXTEND;
+				varray_prod(varray_prod.count) := v_junk;
+
 			END IF;
 		ELSE
 			IF v_junk.NUMJUNK BETWEEN rand2 AND rand1 THEN
 				UPDATE RandomJunk 
 				SET TEXTJUNK='UPDATED'
 				WHERE CURRENT OF num_cur;
-				DBMS_OUTPUT.PUT_LINE('UPDATED');
+
+			ELSE
+				varray_prod.EXTEND;
+				varray_prod(varray_prod.count) := v_junk;
 			END IF;
 
 		END IF;
 
 	END LOOP;
 	COMMIT;
+
+
+	FOR i in varray_prod.FIRST .. varray_prod.LAST LOOP
+		DBMS_OUTPUT.PUT_LINE(i || ' : ' || varray_prod(i).TEXTJUNK);
+	END LOOP;
+
 END;
 /
-
 
 
 set serveroutput on size 1000000;
